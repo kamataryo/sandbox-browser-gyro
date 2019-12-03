@@ -28,10 +28,12 @@
       const y = document.getElementById("gamma");
 
       const gyro = new Gyroscope({ frequency: 60 });
-      gyro.addEventListener("reading", e => {
-        z.value = event.alpha; // z-axis
-        x.value = event.beta; // x-axis
-        y.value = event.gamma; // y-axis
+
+      gyro.addEventListener("reading", () => {
+        console.log("a");
+        z.value = gyro.z; // z-axis
+        x.value = gyro.x; // x-axis
+        y.value = gyro.y; // y-axis
       });
       gyro.start();
     </script>
