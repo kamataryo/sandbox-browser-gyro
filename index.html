@@ -25,11 +25,12 @@
       const x = document.getElementById("beta");
       const y = document.getElementById("gamma");
 
-      window.ondeviceorientation = event => {
+      window.addEventListener('deviceorientation', (e) => {
         z.value = event.alpha; // z-axis
         x.value = event.beta; // x-axis
         y.value = event.gamma; // y-axis
-      };
+        alert(JSON.stringify(e))
+      })
     </script>
   </body>
 </html>
