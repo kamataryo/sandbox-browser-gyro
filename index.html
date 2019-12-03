@@ -29,13 +29,25 @@
 
       const gyro = new Gyroscope({ frequency: 60 });
 
-      gyro.addEventListener("reading", () => {
+      gyro.onreading = e => {
         console.log("a");
         z.value = gyro.z; // z-axis
         x.value = gyro.x; // x-axis
         y.value = gyro.y; // y-axis
+      };
+      gyro.addEventListener("error", e => {
+        console.log({ e });
       });
       gyro.start();
+
+      let gyroscope = new Gyroscope({ frequency: 60 });
+
+      gyroscope.addEventListener("reading", e => {
+        console.log("Angular velocity along the X-axis " + gyroscope.x);
+        console.log("Angular velocity along the Y-axis " + gyroscope.y);
+        console.log("Angular velocity along the Z-axis " + gyroscope.z);
+      });
+      gyroscope.start();
     </script>
   </body>
 </html>
