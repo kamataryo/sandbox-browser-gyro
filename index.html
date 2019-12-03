@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>ジャイロスコープを使ってみる</title>
+    <title>加速度の値を取得する</title>
     <style>
       * {
         font-size: 24px;
@@ -18,32 +18,18 @@
   </head>
   <body>
     <form>
-      <label for="alfa">Z軸方向</label><input type="text" id="alfa" />
-      <label for="beta">X軸方向</label><input type="text" id="beta" />
-      <label for="gamma">Y軸方向</label><input type="text" id="gamma" />
+      <label for="x">X軸方向</label><input type="text" id="x" />
+      <label for="y">Y軸方向</label><input type="text" id="y" />
+      <label for="z">Z軸方向</label><input type="text" id="z" />
     </form>
     <script>
-      navigator.permissions.query({ name: "gyroscope" }).then(result => {
-        if (result.state === "granted") {
-          const z = document.getElementById("alfa");
-          const x = document.getElementById("beta");
-          const y = document.getElementById("gamma");
-          const gyro = new Gyroscope({ frequency: 60 });
-
-          gyro.addEventListener("reading", () => {
-            console.log("reading...");
-            z.value = gyro.z; // z-axis
-            x.value = gyro.x; // x-axis
-            y.value = gyro.y; // y-axis
-          });
-          gyro.addEventListener("error", e => {
-            console.error(e);
-          });
-          gyro.start();
-          console.log("sensor started!");
-        } else {
-          console.log("No permissions to use RelativeOrientationSensor.");
-        }
+      const x = document.getElementById("x");
+      const y = document.getElementById("y");
+      const z = document.getElementById("z");
+      window.addEventListener("devicemotion", event => {
+        z.value = event.acceleration.z + " m/s2";
+        x.value = event.acceleration.x + " m/s2";
+        y.value = event.acceleration.y + " m/s2";
       });
     </script>
   </body>
