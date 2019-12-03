@@ -4,34 +4,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>ジャイロスコープを使ってみる</title>
     <style>
       * {
         font-size: 24px;
         font-family: sans-serif;
       }
-      label, input {
+      label,
+      input {
         display: block;
       }
     </style>
   </head>
   <body>
     <form>
-      <div></div><label for="alfa">Z軸方向</label><input type="text" id="alfa" /></div>
-      <div></div><label for="beta">X軸方向</label><input type="text" id="beta" /></div>
-      <div></div><label for="gamma">Y軸方向</label><input type="text" id="gamma" /></div>
+      <label for="alfa">Z軸方向</label><input type="text" id="alfa" />
+      <label for="beta">X軸方向</label><input type="text" id="beta" />
+      <label for="gamma">Y軸方向</label><input type="text" id="gamma" />
     </form>
     <script>
       const z = document.getElementById("alfa");
       const x = document.getElementById("beta");
       const y = document.getElementById("gamma");
 
-      window.addEventListener('deviceorientation', (e) => {
+      const gyro = new Gyroscope({ frequency: 60 });
+      gyro.addEventListener("reading", e => {
         z.value = event.alpha; // z-axis
         x.value = event.beta; // x-axis
         y.value = event.gamma; // y-axis
-        alert(JSON.stringify(e))
-      })
+      });
+      gyro.start();
     </script>
   </body>
 </html>
